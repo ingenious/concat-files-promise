@@ -1,27 +1,33 @@
-var fs=require('fs');
-module.exports = function(fileArray) {
+var fs = require('fs'),
+join=require('path').join;
+module.exports = function(fileArray, basePath) {
 
-        var concatenated = '',
-            filePromises = [];
+    var concatenated = '',
+        filePromises = [];
 
-        return new Promise(function(resolve, reject) {
-            _.each(fileArray, function(filename) {
+    return new Promise(function(resolve, reject) {
+        if (!fileArray.length) {
+            reject('No files specified');
+        } else {
+            fileArray.map(function(filename) {
                 filePromises.push(
                     new Promise(function(resolve, reject) {
-                        fs.readFile(filename, function(err, content) {
+                        fs.readFile(join( basePath, filename), function(err, content) {
                             if (err) reject(err);
                             resolve(content);
                         });
                     })
                 );
             });
-            Promise.all(fileArray).then(function() {
-                _.each(arguments, function(value) {
-                    concatenated += value;
-                });
+            // only resolve if all files read
+            Promise.all(filePromises).then(function() {
+                for (var i = 0; i < arguments.length; i++) {
+                    concatenated += arguments[i].toString();
+                }
                 resolve(concatenated);
-            }).catch(function(err){
+            }).catch(function(err) {
                 reject(err);
             });
-        });
-    };
+        }
+    });
+};
