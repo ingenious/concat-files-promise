@@ -1,0 +1,24 @@
+{
+    "name": "concat-files-promise",
+
+    "author": {
+        "name": "Stephen Giles",
+        "company": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "description": "returns a concatenate files promise",
+    "version": "0.0.1",
+    "main": "concat-files-promise.js",
+    "dependencies": {
+        
+        
+        
+    },
+    "devDependencies": {
+        
+    },
+    "readmeFilename": "README.md"
+}
