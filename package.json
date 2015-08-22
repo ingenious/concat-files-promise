@@ -7,7 +7,7 @@
     },
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "ingenious/concat-files-promise"
     },
     "description": "returns a concatenate files promise",
     "version": "0.0.1",
@@ -19,6 +19,5 @@
     },
     "devDependencies": {
         
-    },
-    "readmeFilename": "README.md"
+    }
 }
