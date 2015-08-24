@@ -1,5 +1,5 @@
 var fs = require('fs'),
-join=require('path').join;
+    join = require('path').join;
 module.exports = function(fileArray, basePath) {
 
     var concatenated = '',
@@ -12,7 +12,7 @@ module.exports = function(fileArray, basePath) {
             fileArray.map(function(filename) {
                 filePromises.push(
                     new Promise(function(resolve, reject) {
-                        fs.readFile(join( basePath, filename), function(err, content) {
+                        fs.readFile(join(basePath, filename), function(err, content) {
                             if (err) reject(err);
                             resolve(content);
                         });
@@ -20,11 +20,8 @@ module.exports = function(fileArray, basePath) {
                 );
             });
             // only resolve if all files read
-            Promise.all(filePromises).then(function() {
-                for (var i = 0; i < arguments.length; i++) {
-                    concatenated += arguments[i].toString();
-                }
-                resolve(concatenated);
+            Promise.all(filePromises).then(function(content_buffers) {
+                resolve(content_buffers.join(''));
             }).catch(function(err) {
                 reject(err);
             });
